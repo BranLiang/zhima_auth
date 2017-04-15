@@ -44,7 +44,7 @@ KEY
 ```ruby
 # 获取biz_no, certify_url
 params = { cert_name: "王大锤", cert_no: "32012345678901234X", return_url: "http://www.liangboyuan.pub", transanction_id: "12345" }
-# transanction_id is optional, if not provided, a random uuid will be used for transanction_id
+# transanction_id should be given for the moment, problem will be solved in the next release
 ZhimaAuth.certify params
 
 # expected response, following response is a fake one.
