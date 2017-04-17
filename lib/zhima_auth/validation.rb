@@ -43,6 +43,16 @@ module ZhimaAuth
         true
       end
 
+      def check_credit_response response
+        raise ZhimaAuthInvalidResponse, "Credit request failed" unless (response.is_a? Hash) && response["zhima_credit_score_brief_get_response"]
+        response_code = response["zhima_credit_score_brief_get_response"]["code"]
+        if response_code != "10000"
+          response_msg = response["zhima_credit_score_brief_get_response"]["sub_msg"]
+          raise ZhimaAuthInvalidResponse, "#{response_code}#{response_msg}"
+        end
+        true
+      end
+
       private
 
       def check_url url

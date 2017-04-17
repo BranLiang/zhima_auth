@@ -1,41 +1,11 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+require 'yaml'
 require "zhima_auth"
-require 'webmock/rspec'
-
-# fake private_key
-private_key = <<-KEY
------BEGIN RSA PRIVATE KEY-----
-dgZ9NLfweuPLyK1lkq4ItFySxSyxUXclQySlJ02JoT+gfUtV4caLYZ1J4RvMFjoP
-fpnyXdWdejsbKYEI5Mo9pNpdDdB5AuMjAfe6HwIDAQABAoIBAAQCIAoCLnsy87Kj
-x7HriiwecA93wXUt/iGpm3xtXtRbEgGCqJAIHoC7ELVBOaJKHCgfcOaletX9UA35
-ThUL2rLfMgWZuXAVYgAwTv6Jdds1hezSZ0+flWhH/yhEdXtIS+J+iOCP1rIaCyeP
-dgZ9NLfweuPLyK1lkq4ItFySxSyxUXclQySlJ02JoT+gfUtV4caLYZ1J4RvMFjoP
-fpnyXdWdejsbKYEI5Mo9pNpdDdB5AuMjAfe6HwIDAQABAoIBAAQCIAoCLnsy87Kj
-x7HriiwecA93wXUt/iGpm3xtXtRbEgGCqJAIHoC7ELVBOaJKHCgfcOaletX9UA35
-ThUL2rLfMgWZuXAVYgAwTv6Jdds1hezSZ0+flWhH/yhEdXtIS+J+iOCP1rIaCyeP
-Q3phTdjDdnM2xlHpufJ3yz5+JLFwlbEEsKXuEMJSDlND+1IlZ4tBqxoLcdi/Dqu0
-Wj/N1efHoYlaoF1n3hV/EyXeVwQqWWrIJ4/crUgY1QMRaJVuoxvRRogxBN3ImmCm
-Yp/FCJmCOeAwe0iL2hI8wfXXvckxNmw2awJXvWtrGiB57Qegl6FqjYnbLQl7Ps9E
-/hq1GEECgYEA7Wch6GL+HV6Xup3xMCrDpK7FwZQeYhMdcRpuZMprnUmYVuP2iCQN
-ZdUh6hs4U5M1XVHN49Eb4lgkLRDYelDbesUBTsthK4qYZVrcE3Zm7EzkDQpBjZMG
-px3xLCwV7UCFqSNFAJR5lksozW7XXdqwKFc7ynFtCST2VjM4f4EwlM8CgYEAw1vZ
-KW3HvhJD25aoQouchveR7Od8L+ofkgA1eVyY51tLWhqxYq2pAKUBd66pjbXjM82q
-do5GkCHD8VXX051i8n3ONZckLS2brvbS/PB3CUPYHeJ+V/EhQ2fhV7AbuxgcvKaJ
-2ir3FqkBSOFcaVkfZavkFejLzULX90ngEV8FebECgYBbhUPEI82VIu9ZaSQfDo1n
-wlzIeMKRyo6yGJ9wSbzc4Q9SiAV1jHiBxn2Rk7bOOVT8SdoWtnmKc7JWkUTzOpKy
-LJqJdsxaDc8cW7+13RJmjGnqQQbufjy1VkywW7qEQTiF8OvcAmExOH5dXBq4uuLo
-WmDZdYq0WMSCjLJ+LR6+bwKBgHOZWftF1rgGHtlFYPNfoZPL0zGYGMhRhbTjIsFZ
-pbDhOMlsmiKGGEclXKTxWatdQcBZptDYh7CqCkQ4Q6oYq4BKKUdU1DdXkZQKwfai
-ZA27c5rbd1+ac9BrG9DDiOVA82A+O7w5SFTEVNpHYGOGNSn4eNLuGgqvzxOpR0mA
-LMFBAoGAUAgyFOusxxcXaKdJY+LzMNyQLmbmvVxF0l5V0syE1a8Mv5YivFsXqIFT
-x+26iF4G8GcrZtejwVrkgr9i6B4CIHa90Qs8PpAuFgzspwU4ALOsBujfC1fk+iVl
-d3S+mDxT/A+hxMFsZr8CQUj/CJtG/SYcLpAWAW3akvVqacHgqOQ=
------END RSA PRIVATE KEY-----
-KEY
-
+# require 'webmock/rspec'
+secret = YAML.load_file('spec/zhima.yml')
 
 # fake config
 ZhimaAuth.configure do |config|
-  config.app_id = "2017021605701234"
-  config.private_key = private_key
+  config.app_id = secret["app_id"]
+  config.private_key = secret["private_key"]
 end
