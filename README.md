@@ -59,6 +59,20 @@ ZhimaAuth::QueryRequest.new("MK8789789789787978").get_certify_result
 
 # expected result
 "true" or "false"
+
+# UPDATE 0.3.0
+# 添加芝麻信用值的check， 方法如下
+# support cert_type: IDENTITY_CARD(身份证),PASSPORT(护照),ALIPAY_USER_ID(支付宝uid)
+params = {
+  cert_name: "王大锤", cert_no: "32012345678901234X", transanction_id: "12345",
+  cert_type: "IDENTITY_CARD", admittance_score: 650
+}
+ZhimaAuth::CreditRequest.new(params).get_result
+# expected response, following response is a fake one.
+{
+  passed: true,
+  biz_no: "MK76786786877687897"
+}
 ```
 
 
