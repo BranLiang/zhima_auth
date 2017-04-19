@@ -13,35 +13,35 @@ describe ZhimaAuth::InitializeRequest do
     context "when params is not a hash" do
       it "raise ZhimaAuthInvalidParams with message Params should be a hash" do
         params = "I am a string"
-        expect{ZhimaAuth::InitializeRequest.new(params)}.to raise_error(ZhimaAuth::ZhimaAuthInvalidParams, "Params should be a hash")
+        expect{ZhimaAuth::InitializeRequest.new(params)}.to raise_error(ZhimaAuth::InvalidParams, "Params should be a hash")
       end
     end
 
     context "when params missing a key" do
       before { params.delete(:transaction_id) }
       it "raise ZhimaAuthInvalidParams with message Params should include cert_name, cert_no and transaction_id" do
-        expect{ZhimaAuth::InitializeRequest.new(params)}.to raise_error(ZhimaAuth::ZhimaAuthInvalidParams, "Params should include cert_name, cert_no and transaction_id")
+        expect{ZhimaAuth::InitializeRequest.new(params)}.to raise_error(ZhimaAuth::InvalidParams, "Params should include cert_name, cert_no and transaction_id")
       end
     end
 
     context "when name is too short" do
       before { params[:cert_name] = "王" }
       it "raise ZhimaAuthInvalidParams with message Invalid name" do
-        expect{ZhimaAuth::InitializeRequest.new(params)}.to raise_error(ZhimaAuth::ZhimaAuthInvalidParams, "Invalid name")
+        expect{ZhimaAuth::InitializeRequest.new(params)}.to raise_error(ZhimaAuth::InvalidParams, "Invalid name")
       end
     end
 
     context "when name is too long" do
-      before { params[:cert_name] = "王大锤他老爹" }
+      before { params[:cert_name] = "王大锤他老爹回家客户空间很快空间空间考虑" }
       it "raise ZhimaAuthInvalidParams with message Invalid name" do
-        expect{ZhimaAuth::InitializeRequest.new(params)}.to raise_error(ZhimaAuth::ZhimaAuthInvalidParams, "Invalid name")
+        expect{ZhimaAuth::InitializeRequest.new(params)}.to raise_error(ZhimaAuth::InvalidParams, "Invalid name")
       end
     end
 
     context "when id number is with false length" do
       before { params[:cert_no] = "3201234555990876" }
       it "raise ZhimaAuthInvalidParams with message Invalid identity number" do
-        expect{ZhimaAuth::InitializeRequest.new(params)}.to raise_error(ZhimaAuth::ZhimaAuthInvalidParams, "Invalid identity number")
+        expect{ZhimaAuth::InitializeRequest.new(params)}.to raise_error(ZhimaAuth::InvalidParams, "Invalid identity number")
       end
     end
   end
@@ -69,7 +69,7 @@ describe ZhimaAuth::InitializeRequest do
         }.to_json)
       end
       it "raise ZhimaAuthInvalidResponse with message code + sub_msg" do
-        expect{request.get_biz_no}.to raise_error(ZhimaAuth::ZhimaAuthInvalidResponse, "40002无效签名")
+        expect{request.get_biz_no}.to raise_error(ZhimaAuth::InvalidResponse, "40002无效签名")
       end
     end
   end

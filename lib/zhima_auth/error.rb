@@ -1,12 +1,12 @@
 module ZhimaAuth
-  class ZhimaAuthInvalidParams < StandardError
+  class InvalidParams < StandardError
     attr_accessor :message
     def initialize(msg=nil)
       @message = msg
     end
   end
 
-  class ZhimaAuthInvalidResponse < StandardError
+  class InvalidResponse < StandardError
     attr_accessor :message
     def initialize(msg=nil)
       @message = msg

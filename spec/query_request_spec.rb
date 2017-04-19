@@ -13,7 +13,7 @@ describe ZhimaAuth::QueryRequest do
     context "when biz_no is with invalid length" do
       it "raise ZhimaAuthInvalidParams with message Invalid biz no" do
         params = "MK67867868"
-        expect{ZhimaAuth::QueryRequest.new(params)}.to raise_error(ZhimaAuth::ZhimaAuthInvalidParams, "Invalid biz no")
+        expect{ZhimaAuth::QueryRequest.new(params)}.to raise_error(ZhimaAuth::InvalidParams, "Invalid biz no")
       end
     end
   end
@@ -41,7 +41,7 @@ describe ZhimaAuth::QueryRequest do
         }.to_json)
       end
       it "raise ZhimaAuthInvalidResponse with message code + sub_msg" do
-        expect{request.get_certify_result}.to raise_error(ZhimaAuth::ZhimaAuthInvalidResponse, "40004无效的调用")
+        expect{request.get_certify_result}.to raise_error(ZhimaAuth::InvalidResponse, "40004无效的调用")
       end
     end
   end
